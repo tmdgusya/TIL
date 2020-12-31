@@ -1,7 +1,5 @@
 # Thread 란 ?
 
-
-
 ## Thread Life Cycle
 
 Thread 의 생명주기는 아래 도식과 같다.
@@ -12,12 +10,12 @@ Thread 의 생명주기는 아래 도식과 같다.
 
 - **RUNNABLE** : start() 가 발생하면 일단 호출 대기 상태가 되며, 이후 run() 함수가 작동하면, Running 하며 CPU를 점유한다. Runnable Pool 에 모여있다.
 
-- **WAITING** :  다른 쓰레드에서 notify 등으로 자신이 작업한다는 것을 알릴때, 해당 Thread 를 기다리는 동안 갖게 되는 상태이다.
+- **WAITING** : 다른 쓰레드에서 notify 등으로 자신이 작업한다는 것을 알릴때, 해당 Thread 를 기다리는 동안 갖게 되는 상태이다.
 
-- **TIMED_WAITING** : 일시 정지, Timeout 등으로 걸린 시간이 지 때까지 대기 하는 상태이다. 
+- **TIMED_WAITING** : 일시 정지, Timeout 등으로 걸린 시간이 지 때까지 대기 하는 상태이다.
 
 - **BLOCK** : BLOCKING WORK 흔히 말하는 NetWork 통신을 통한 데이터 전송 혹은 DB 작업 등 Blocking 을 줄 수 있는 작업을 진행할 시 받게 되는 작업상태이다. <br>
-해당 작업이 끝나고 lock 이 풀려야 다시 Runnable 로 돌아가게 된다.
+  해당 작업이 끝나고 lock 이 풀려야 다시 Runnable 로 돌아가게 된다.
 
 - **TERMINATED** : 실행 마치고 종료된 상태, run() 단계의 working 이 끝난 상태이다.
 
@@ -26,21 +24,21 @@ Thread 의 생명주기는 아래 도식과 같다.
 
 # Thread 예시
 
-- 아주 간단하게 일단은, 돈의 입 / 출금 형태로 코드를 구성하였다. 
+- 아주 간단하게 일단은, 돈의 입 / 출금 형태로 코드를 구성하였다.
 - 아래코드는 은행 계좌의 간소한 역할인 입 / 출금만 진행하는 코드로 Thread 간 다른 Obj 를 주고 어떤 Thread 가 먼져 실행되는지 테스트 해볼 것이다.
 
 ## 테스트 과정
 
-- Child Thread 를 구성한다. 
+- Child Thread 를 구성한다.
 - 보유 잔액 : 10000
 - 이름 : jsh
-- 입금액 : 10000 원 씩 * 총 10회
+- 입금액 : 10000 원 씩 \* 총 10회
 - Sleep : 3 seconds
 
 - Parent Thread 를 구성한다.
 - 보유잔액 : 110000
 - 이름 : yjs
-- 입금액 : 10000 원 씩 * 총 10회
+- 입금액 : 10000 원 씩 \* 총 10회
 - sleep : 3 seconds
 
 ## 예상 결과
@@ -84,6 +82,7 @@ public class Account {
 ```
 
 ### Child Thread 구성코드
+
 ```java
 package Example02;
 
@@ -115,6 +114,7 @@ public class ChildThread implements Runnable{
 ```
 
 ### Parent 구성코드
+
 ```java
 package Example02;
 
@@ -171,13 +171,131 @@ public class Main {
 ## 테스트 결과로 알게된점
 
 - 처음하고 둘째 줄을 봤을때, 입금 후 남은 계좌가 바로 연달아서 나와야 하나 남은 계좌가 나오기 전 다른 Thread 가 실행되는것을 볼 수 있다.<br>
-이를 작업도로 그려보면 아래와 같다. 아래와 같이 Thread 는 정확한 순서를 보장하지 못한다. 그렇다면 우리가 Thread 의 실행 순서를 보장해주기 위해서는 어떻게 해야 할까?
-그래서 등장한것이 Thread.join() 이다.
+  이를 작업도로 그려보면 아래와 같다. 아래와 같이 Thread 는 정확한 순서를 보장하지 못한다. 그렇다면 우리가 Thread 의 실행 순서를 보장해주기 위해서는 어떻게 해야 할까?
+  그래서 등장한것이 Thread.join() 이다.
 
 ![작업 큐](ThreadWorkQueue.png)
 
+## Thread 상태 파악
+
+- Thread 의 상태 파악을 하기 위해서 I/O 작업을 일으켜야 할것 같았다. 그래서 md 파일을 읽어오는 방식을 이용했다.. ㅎㅎ..
+- 그래서 간단하게 FileReaderUtil.java 파일을 만들었다. 구성은 아래와 같다.
+
+```java
+package Thread;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+public class FileReaderUtil {
+
+    public int readFile(String filePath) {
+        BufferedReader br = null;
+        StringBuffer sb = new StringBuffer();
+        try {
+            br = new BufferedReader(new FileReader(filePath));
+            String line = null;
+
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null) {
+                    br.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.length();
+    }
+}
+```
+
+간단히 Md file 이 몇 줄인지 알아볼 수 있는 함수라고 생각하면 된다.
+
+- 그냥 간단히 파일을 읽기 위해서 작업을 하고, 두 Thread 에 간단하게 I/O 작업을 일으킬만하게 부하를 줘보자!
+
+```java
+for (int j = 0; j < 100000; j++) {
+    fileReaderUtil.readFile(testMD);
+}
+```
+
+- 근데 아직 Block 은 구현하지 못했다. Block 은 좀.. DB 단에 데이터를 엄청 넣어놓고 가져오는? 그런 작업이 진행되어야 할듯하다. <br>
+  일단 위의 코드 부터 간단히 설명하자면 readfile 을 100000번한다 한마디로 그냥 부하 그자체이다.
+
+- 이걸 실행시킨다면 이제 실행주기가 아래와 같이 보인다.
+
+```
+12 : jsh Thread
+13 : yjs Thread
+
+12.getState() = NEW => 생성된 상태
+13.getState() = NEW => 생성된 상태
+jsh 님이 10000 만큼 입금하셨습니다.
+yjs 님이 10000 만큼 입금하셨습니다.
+남은 계좌는 : 20000
+남은 계좌는 : 120000
+12.getState() = RUNNABLE
+13.getState() = RUNNABLE
+12.getState() = RUNNABLE
+13.getState() = RUNNABLE
+12.getState() = RUNNABLE
+13.getState() = RUNNABLE
+12.getState() = RUNNABLE
+13.getState() = RUNNABLE => 작업 진행중
+12.getState() = RUNNABLE => 작업 진행중
+
+12.getState() = TIMED_WAITING => Sleep 함수로 인한 Timeout
+13.getState() = TIMED_WAITING
+12.getState() = TIMED_WAITING
+13.getState() = TIMED_WAITING
+12.getState() = TIMED_WAITING
+
+12.getState() = TERMINATED
+
+```
+
+위와 같은 코드로는 우리가 WAIT 과 BLOCK 은 보지 못했다. 왜일까?
+
+우리가 멀티 스레딩 환경으로 돌렸기 때문에, 그냥 두 스레드가 돌아갈 것이다. 우리가 Block 은 JPA 를 사용해서 DB 를 읽는 걸 본다하면, <br>
+WAIT 은 스레드간의 순서를 정해준다고 생각하면 편하다. 단순히 숫자의 순서가 아닌, **나 다음에 너가 해** 라는 식의 순서이다. <br>
+백문이 불여일견이라고 구현해보자!!
+
+- 일단 아래와 같이 코드를 구현해보자
+
+```java
+        thread1.start();
+        synchronized (thread1) {
+            try {
+                System.out.println("jsh 의 Thread 작업을 기다립니다.");
+                thread1.wait();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        thread2.start();
+```
+
+이렇게 되면 결과는 아래와 같다.
+
+```
+12.getState() = NEW
+13.getState() = NEW
+12.getState() = RUNNABLE
+13.getState() = NEW
+12.getState() = RUNNABLE
+13.getState() = NEW
+12.getState() = RUNNABLE
+```
+
+근데 우리가 보고싶은건 WAIT 이다!! 그렇다면 코드를 수정해보자!
 
 ## Thread Join
 
 - Thread Join 은 Thread 의 실행 순서를 정해 줄 수 있다. 우리가 한가지 알아야 될 사실은 Main 도 하나의 Thread 라는 것이다.
-처음에는 Main 도 하나의 Thread 라면 
+  처음에는 Main 도 하나의 Thread 라면

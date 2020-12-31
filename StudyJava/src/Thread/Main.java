@@ -1,4 +1,4 @@
-package Example02;
+package Thread;
 
 public class Main {
 
@@ -13,18 +13,32 @@ public class Main {
         thread_.start();
         try {
             Thread.sleep(50);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         thread1.start();
-        try {
-            Thread.sleep(50);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
         thread2.start();
-    }
+        while (true) {
+            synchronized (thread1) {
+                try {
+                    System.out.println("jsh 의 Thread 작업을 기다립니다.");
+                    thread1.wait();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            synchronized (thread2) {
+                try {
+                    System.out.println("jsh 의 Thread 작업을 기다립니다.");
+                    thread2.wait();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
+            }
+
+        }
+    }
 
     static class GetStateThread implements Runnable {
         private Thread thread1;
