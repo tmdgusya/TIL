@@ -20,6 +20,7 @@ public class Main {
             e.printStackTrace();
         }
 
+        // 우선 순위 설정
         thread1.setPriority(Thread.MIN_PRIORITY);
         thread2.setPriority(Thread.MAX_PRIORITY);
 
@@ -32,18 +33,19 @@ public class Main {
         thread1.start();
         thread2.start();
 
-//        try{
-//            thread1.start();
-//            thread1.join();
-//            thread2.start();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
+        // try{
+        // thread1.start();
+        // thread1.join();
+        // thread2.start();
+        // }catch (Exception e){
+        // e.printStackTrace();
+        // }
     }
 
     static class GetStateThread implements Runnable {
         private Thread thread1;
         private Thread thread2;
+        private final int delayToNexThread = 500;
 
         public GetStateThread(Thread tr1, Thread tr2) {
             this.thread1 = tr1;
@@ -56,9 +58,7 @@ public class Main {
                 try {
                     printThreadState(thread1);
                     printThreadState(thread2);
-
-                    Thread.sleep(500);
-
+                    Thread.sleep(delayToNexThread);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -73,23 +73,20 @@ public class Main {
     }
 }
 
+// synchronized (thread1) {
+// try {
+// System.out.println("jsh 의 Thread 작업을 기다립니다.");
+// thread1.wait();
+// } catch (Exception e) {
+// e.printStackTrace();
+// }
+// }
 
-//        synchronized (thread1) {
-//            try {
-//                System.out.println("jsh 의 Thread 작업을 기다립니다.");
-//                thread1.wait();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-
-
-
-//        synchronized (thread2) {
-//            try {
-//                System.out.println("jsh 의 Thread 작업을 기다립니다.");
-//                thread2.wait();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
+// synchronized (thread2) {
+// try {
+// System.out.println("jsh 의 Thread 작업을 기다립니다.");
+// thread2.wait();
+// } catch (Exception e) {
+// e.printStackTrace();
+// }
+// }
