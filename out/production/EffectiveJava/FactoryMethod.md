@@ -50,7 +50,7 @@
 ```
 
 - Grade.class 는 공통적인 속성들을 담았다. Grade 에서 필요한 Method 혹은 필요한 멤버 변수들을 담았다.
-- 회원들 스텝 단계는 
+- 회원들 스텝 단계는 Level 에 Enum 에 각 단계별로 저장하였다.
 
 ```java
 
@@ -80,4 +80,75 @@ public class Grade {
         return grade;
     }
 }
+```
+
+각 클래스들은 Grade 를 할당받아 아래처럼 설계되었다.
+
+```java
+public class Platinum extends Grade{
+
+    public Platinum(String username, int amount) {
+        super(amount, username, Level.PLATINUM.name());
+    };
+}
+```
+
+```java
+public class Gold extends Grade {
+
+    public Gold(String username, int amount) {
+        super(amount, username, Level.GOLD.name());
+    };
+}
+```
+
+#### 팩토리 메소드 부분
+
+이제 팩토리 메소드 부분을 알아보자. 우리는 회원을 등록할때 그 가격에 따른 등급을 일단 부여하고 싶다. <br>
+물론 등급이 정적으로 박히는건 안좋을 수도 있을것 같은데, 예시를 잘못잡은것 같기도하고.. <br>
+일단은 실무예시라 생각하지 말고, 단순히 정적팩토리 메소드설명을 위한 메소드라 생각해주면 좋겠다. <br>
+
+```java
+package ExampleCode;
+
+public class GradeFactory {
+
+    private static Silver silver;
+    private static Gold gold;
+    private static Platinum platinum;
+    private static Diamond diamond;
+
+    private GradeFactory() {
+    }
+
+    public static Grade getGradeInstance(String username, int amount) {
+        if (amount < 200000) {
+            silver = new Silver(username, amount);
+            return silver;
+        } else if (amount < 300000) {
+            gold = new Gold(username, amount);
+            return gold;
+        } else if (amount < 400000){
+            platinum = new Platinum(username, amount);
+            return platinum;
+        } else {
+            diamond = new Diamond(username, amount);
+            return diamond;
+        }
+    }
+}
+```
+
+- 등급에 따라 객체 인스턴스를 다르게 리턴하도록 했으며, 최대한 정적 팩토리 메소드의 이름을 Grade 객체를 인스턴스를 리턴하는걸 알 수 있도록 지었다.
+- 이를 Main 문에서 사용하고, 어떤 결과값을 가져오는지 사용해보자!
+
+```java
+    public static void main(String[] args) {
+        Grade JSH = GradeFactory.getGradeInstance("jsh",300000);
+        Grade KIM = GradeFactory.getGradeInstance("kim", 180000);
+        Grade DOD = GradeFactory.getGradeInstance("dod", 500000);
+        System.out.println(JSH.getGrade());
+        System.out.println(KIM.getGrade());
+        System.out.println(DOD.getGrade());
+    }
 ```
