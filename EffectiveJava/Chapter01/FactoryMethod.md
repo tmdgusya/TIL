@@ -140,3 +140,25 @@ public class GradeFactory {
 ```
 
 - 등급에 따라 객체 인스턴스를 다르게 리턴하도록 했으며, 최대한 정적 팩토리 메소드의 이름을 Grade 객체를 인스턴스를 리턴하는걸 알 수 있도록 지었다.
+- 이를 Main 문에서 사용하고, 어떤 결과값을 가져오는지 사용해보자!
+
+```java
+    public static void main(String[] args) {
+        Grade JSH = GradeFactory.getGradeInstance("jsh",300000);
+        Grade KIM = GradeFactory.getGradeInstance("kim", 180000);
+        Grade DOD = GradeFactory.getGradeInstance("dod", 500000);
+        System.out.println(JSH.getGrade());
+        System.out.println(KIM.getGrade());
+        System.out.println(DOD.getGrade());
+    }
+```
+
+#### 결과값
+
+아래와 같이 구매 가격에 따라, 다른 객체 인스턴스를 반환하는걸 알 수 있다.
+
+```
+PLATINUM
+SILVER
+DIAMOND
+```
