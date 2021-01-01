@@ -7,13 +7,13 @@ public class FileReaderUtil {
 
     public int readFile(String filePath) {
         BufferedReader br = null;
-        StringBuffer sb = new StringBuffer();
+        StringBuffer storeReadLine = new StringBuffer();
         try {
             br = new BufferedReader(new FileReader(filePath));
-            String line = null;
+            String readLine = null;
 
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
+            while ((readLine = br.readLine()) != null) {
+                storeReadLine.append(readLine);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -26,6 +26,6 @@ public class FileReaderUtil {
                 e.printStackTrace();
             }
         }
-        return sb.length();
+        return storeReadLine.length();
     }
 }
