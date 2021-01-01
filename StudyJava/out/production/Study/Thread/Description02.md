@@ -1,5 +1,19 @@
 # Thread 란 ?
 
+Thread 란 프로세스 내에서 진행되는 일련의 작은 작업의 흐름이라고 보면 된다. OS 단에서 프로세스에게 자원을 할당해주면, Thread 들은 그 자원을 나누어 받아
+작업을 진행한다. 예시로 우리가 이용하는 Main 문도 하나의 Thread 이다. 
+
+## Thread 의 특징
+
+- 스레드는 프로세스 내에서 각각 Stack 만 따로 할당받고, Code, Data, Heap 의 영역은 공유된다. => 이로 인해 객체 동시 참조로 인한 오류가 발생할 수 있다.
+- **한 스레드가 프로세스 자원을 변경하면, 다른 이웃 스레드도 그 변경 결과를 즉시 볼 수 있다.**
+
+## Java Thread 란?
+
+- 일반 Thread 와 별차이가 없으며, JVM 이 운영체제의 역할을 한다.  => 즉 JVM 이 OS 라 한다면, Thread 는 Process 의 위치이다. 
+- 자바에서 **스레드 스케쥴링은 전적으로 JVM에 의해 이루어진다.** => 스케쥴링이 있다는건 Priority 의 선정방식이 있다는 것이다.
+
+
 ## Thread Life Cycle
 
 Thread 의 생명주기는 아래 도식과 같다.
@@ -295,7 +309,119 @@ WAIT 은 스레드간의 순서를 정해준다고 생각하면 편하다. 단�
 
 근데 우리가 보고싶은건 WAIT 이다!! 그렇다면 코드를 수정해보자!
 
+## Synchronized 예시 보기
+
+```java
+package Thread;
+
+public class SyncronizedExample {
+    private String mMessage;
+
+    public static void main(String[] agrs) {
+        SyncronizedExample temp = new SyncronizedExample();
+        System.out.println("Test start!");
+        new Thread(() -> { for (int i = 0; i < 1000; i++) { temp.callMe("Thread1"); } }).start();
+        new Thread(() -> { for (int i = 0; i < 1000; i++) { temp.callMe("Thread2"); } }).start();
+        System.out.println("Test end!");
+    }
+    public void callMe(String whoCallMe) {
+        mMessage = whoCallMe;
+        try {
+            long sleep = (long) (Math.random() * 100);
+            Thread.sleep(sleep);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } if (!mMessage.equals(whoCallMe)) {  // Synchronized 로 하지않으면 값이 다를때도있음
+            System.out.println(whoCallMe + " | " + mMessage);
+        }
+    }
+}
+
+```
+
+### 결과값
+
+```
+Thread1 | Thread2
+Thread2 | Thread1
+Thread1 | Thread2
+Thread2 | Thread1
+Thread1 | Thread2
+Thread2 | Thread1
+Thread1 | Thread2
+Thread2 | Thread1
+Thread1 | Thread2
+```
+
+### Synchronized 를 함수에 정의해보자
+
+```java
+    public synchronized void callMe(String whoCallMe) {
+        mMessage = whoCallMe;
+        try {
+            long sleep = (long) (Math.random() * 100);
+            Thread.sleep(sleep);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } if (!mMessage.equals(whoCallMe)) {  // Synchronized 로 하지않으면 값이 다를때도있음
+            System.out.println(whoCallMe + " | " + mMessage);
+        }
+    }
+```
+
 ## Thread Join
 
 - Thread Join 은 Thread 의 실행 순서를 정해 줄 수 있다. 우리가 한가지 알아야 될 사실은 Main 도 하나의 Thread 라는 것이다.
-  처음에는 Main 도 하나의 Thread 라면
+  처음에는 Main 도 하나의 Thread 라면 순서를 지정해줄 수 있다. 일단은 우리는 두 Thread YJS 와 JSH 간의 관계를 Join 으로 표시해보자.
+
+```java
+        try{
+            thread1.start();
+            thread1.join();
+            thread2.start();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+```
+
+### 터미널 결과
+```
+14.getState() = NEW
+13.getState() = RUNNABLE
+14.getState() = NEW
+13.getState() = RUNNABLE
+14.getState() = NEW
+13.getState() = RUNNABLE
+14.getState() = NEW
+13.getState() = RUNNABLE
+14.getState() = NEW
+```
+
+### 의문점
+
+- 이렇게 보면 Synchronized 랑 join 이랑 별 차이가 없어 보인다. 근데 우리는 차이를 발견해야 한다. <br>
+사실 일반적인 상황에서는 찾기 힘든 예시인데.. 일단 둘의 차이점은 아래와 같다.
+
+> Thread.join 은 단순히 하나의 작업이 끝날때 까지 다른 Thread 를 기다리게 하는 것이다. Synchronized 는 그런 개념이 아니라,
+> 한 코드에 대해서 동시점에 해당 코드를 못보게 하도록 막아야 할때 쓰이는 것이다.
+
+## 우선순위를 통한 수동 스케쥴링
+
+
+
+#### 예시
+
+**만약 C 객체가 원격 데이터베이스 서버의 Entity 객체라고 해보자.**<br>
+
+- 우리가 DB 에 접근하는데, 만약 A 스레드에서 DB 에 천만건의 정보를 올리는 작업을 진행한다고 해보자. <br>
+그럼 DB 에 Transaction 작업이 일어나는 것이므로, 해당 작업에 대해 무결성을 보장받아야 한다. <br>
+근데 Thread B 에서 만약 A 작업중에 같은 객체로 DB 에 접근하려고 한다고 해보자. 그럼 무결성이 보장되지 않는다. <br>
+따라서 Lock 기능이 필요한데, 이때 C 객체에 Synchronized 를 사용하면 된다. 다른 스레드의 침해로 일어날 수 있는 작업들에 대해서는 Synchronized 를 지정해 줘야 한다.
+근데 만약 A 작업이 완료되고 B 작업이 진행되는 로직이라면 해당 로직에는 Join 을 써주면 된다.
+
+**여담.. 알아보다보니 JPA 는 Lock Mode 라는 것을 지원한다고 한다.**
+
+# 느낀점
+
+- 다음 스터디 조사는 Thread Poll 을 하면 좋을 것 같다. 사실 Thread Pool 을 통해, 대규모 요청을 병렬처리 하거나 프로세스를 기획하고, 실무에 도입할 수 있을것
+같은데, 궁금하기도 하다.
