@@ -26,7 +26,7 @@ public class ParentThread implements Runnable {
         }
     }
 
-    private readMdFile(String filePath){
+    private void readMdFile(String filePath) {
         for (int j = 0; j < 100000; j++) {
             fileReaderUtil.readFile(filePath);
         }
