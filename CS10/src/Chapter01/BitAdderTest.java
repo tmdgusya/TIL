@@ -3,6 +3,9 @@ package Chapter01;
 public class BitAdderTest {
 
     public static void main(String[] args) {
+
+
+
         BitAdder bitAdder = new BitAdder();
         boolean[] byteA = {true, true, false, true, true, false, true, false};
         boolean[] byteB = {true, false, true, true, false, false, true, true};
@@ -28,21 +31,25 @@ public class BitAdderTest {
         printByteAdderResult(byteA_, byteB_);
     }
     private static void printHalfAdderResult(boolean bitA, boolean bitB){
+        final int CARRY = 0;
+        final int SUM = 1;
         BitAdder bitAdder = new BitAdder();
         boolean[] result = bitAdder.halfAdder(bitA, bitB);
         System.out.println("bitA = " + bitA);
         System.out.println("bitB = " + bitB);
-        System.out.println("결과 = [ " + result[0] + " , " + result[1] + " ]");
+        System.out.println("결과 = [ " + result[CARRY] + " , " + result[SUM] + " ]");
         System.out.println("===============================================");
     }
 
     private static void printFullAdderResult(boolean bitA, boolean bitB, boolean carry){
+        final int CARRY = 0;
+        final int SUM = 1;
         BitAdder bitAdder = new BitAdder();
         boolean[] result = bitAdder.fulladder(bitA, bitB, carry);
         System.out.println("bitA = " + bitA);
         System.out.println("bitB = " + bitB);
         System.out.println("carry = " + carry);
-        System.out.println("결과 = [ " + result[0] + " , " + result[1] + " ]");
+        System.out.println("결과 = [ " + result[CARRY] + " , " + result[SUM] + " ]");
         System.out.println("===============================================");
     }
 

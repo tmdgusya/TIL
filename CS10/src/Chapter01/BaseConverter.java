@@ -13,13 +13,22 @@ public class BaseConverter {
         this.decimal = decimal;
     }
 
-    public ArrayList<Boolean> dec2bin(int decimal) {
+    public boolean[] dec2bin(int decimal) {
+
+        int index = 0;
+
         while(decimal / 2 != 0){
             decimalConvertToBin.add((decimal % 2) == 1);
             decimal = decimal / 2;
         }
         decimalConvertToBin.add(decimal == 1);
-        return decimalConvertToBin;
+        boolean[] result = new boolean[decimalConvertToBin.size()];
+
+        for (boolean value : decimalConvertToBin){
+            result[index] = value;
+            index++;
+        }
+        return result;
     }
 
     public int bin2dec(boolean[] bin){
