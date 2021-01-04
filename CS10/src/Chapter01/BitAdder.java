@@ -21,10 +21,10 @@ public class BitAdder {
         this.carry = carry;
     }
 
-    public boolean[] halfAdder(boolean inputBit, boolean inputBit_){
+    public boolean[] halfAdder(boolean byteA, boolean byteB){
         boolean[] answer = new boolean[2];
-        answer[CARRY] = inputBit && inputBit_;
-        answer[SUM] = inputBit != inputBit_;
+        answer[CARRY] = getCarry(byteA, byteB);
+        answer[SUM] = getSum(byteA, byteB);
         return answer;
     }
 
@@ -38,8 +38,6 @@ public class BitAdder {
 
     public boolean[] byteAdder(boolean[] byteA, boolean[] byteB){
         int length = whoIsBigLengthArray(byteA, byteB);
-        System.out.println("byteA = " + byteA.length);
-        System.out.println("byteB.length = " + byteB.length);
         boolean[] fulladder;
         boolean[] answer = new boolean[length];
         boolean preCalcResult = false;
@@ -51,12 +49,12 @@ public class BitAdder {
             }else{
                 fulladder = fulladder(byteA[i], byteB[i], preCalcResult);
             }
-            preCalcResult = isPreCalcResult(answer, i, fulladder);
+            preCalcResult = isPreCalcResultOfCarry(answer, i, fulladder);
         }
         return answer;
     }
 
-    private boolean isPreCalcResult(boolean[] answer, int i, boolean[] fulladder) {
+    private boolean isPreCalcResultOfCarry(boolean[] answer, int i, boolean[] fulladder) {
         boolean preCalcResult;
         answer[i] = fulladder[SUM];
         answer[i + 1] = fulladder[CARRY];
@@ -73,4 +71,13 @@ public class BitAdder {
         }
         return (length+1);
     }
+
+    private boolean getCarry(boolean byteA, boolean byteB){
+        return byteA && byteB;
+    }
+
+    private boolean getSum(boolean byteA, boolean byteB){
+        return byteA != byteB;
+    }
+
 }

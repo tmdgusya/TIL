@@ -6,17 +6,10 @@ public class BaseConverterTest {
     public static void main(String[] args) {
         boolean[] bin = {false, true, true, true};
         BaseConverter baseConverter = new BaseConverter();
-
-
-
         BitAdder bitAdder = new BitAdder();
-
-
         getBaseDec2binResult(17);
-
         int i = baseConverter.bin2dec(bin);
         System.out.println("결과 = " + i);
-
         decimalToAfterBinaryOperation(8,90);
     }
 
