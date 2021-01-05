@@ -50,4 +50,13 @@ class StackTest {
         Integer pop = stack.pop();
         Assertions.assertEquals(2, pop);
     }
+
+    @Test
+    void min(){
+        Integer expectedData = 0;
+        stack.push(3);
+        stack.push(expectedData);
+        stack.push(5);
+        Assertions.assertEquals(expectedData, stack.getMin());
+    }
 }
