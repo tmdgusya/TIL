@@ -40,13 +40,9 @@ public class Stack<T> {
 
     private Object compare(T min, T data) {
         if(min instanceof Integer){
-            Integer min_ = (Integer) min;
-            Integer data_ = (Integer) data;
-            return Integer.compare(min_, data_);
+            return (Integer) min >= (Integer) data ? min:data;
         }else{
-            Long min_ = (Long) min;
-            Long data_ = (Long) data;
-            return Long.compare(min_, data_);
+            return (Long) min >= (Long) data ? min:data;
         }
     }
 
