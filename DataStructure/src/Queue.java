@@ -1,48 +1,68 @@
 import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
 
 public class Queue<T> {
 
+
     private T item;
-    private Queue<T> top;
     private Queue<T> next;
+    private Queue<T> first;
+    private Queue<T> last;
 
     public Queue(T item) {
         this.item = item;
-        this.top = this;
+        if(first == null){
+            first = this;
+        }
+        if(last == null){
+            last = this;
+        }
     }
 
     public void add(T item){
-        if(this.item == null){
-            this.item = item;
-        }else{
-            Queue<T> next = new Queue<>(item);
-            this.next = next;
-            next.top = this;
+        Queue<T> next = new Queue<>(item);
+        if(last != null){
+            last.next = next;
+        }
+        last = next;
+        if(first == null){
+            first = last;
         }
     }
 
     public T peek(){
-        if(this.top == null){
-            return this.item;
-        }else{
-            return this.top.item;
-        }
+        return this.first.item;
     }
 
     public void remove(){
-        top.item = null;
-        if(this.next != null){
-            this.top = next;
+        if(first == null) throw new NoSuchElementException();
+        if(first.next == null){
+            first = null;
         }else{
-            throw new EmptyStackException();
+            first = first.next;
+            if(first == null){
+                last = null;
+            }
         }
     }
 
     public boolean isEmpty(){
-        if(this.top != null){
-            return this.top == null;
-        }else{
-            return this.item == null;
-        }
+        return first == null;
+    }
+
+    public Queue<T> getFirst() {
+        return first;
+    }
+
+    public void setFirst(Queue<T> first) {
+        this.first = first;
+    }
+
+    public Queue<T> getLast() {
+        return last;
+    }
+
+    public void setLast(Queue<T> last) {
+        this.last = last;
     }
 }
