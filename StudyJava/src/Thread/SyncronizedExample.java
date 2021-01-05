@@ -1,22 +1,24 @@
 package Thread;
 
+import java.io.BufferedReader;
+
 public class SyncronizedExample {
     private String mMessage;
 
     public static void main(String[] agrs) {
-        SyncronizedExample temp = new SyncronizedExample();
-
+        SyncronizedExample tempObj = new SyncronizedExample();
+        BufferedReader
         System.out.println("Test start!");
 
         new Thread(() -> {
             for (int i = 0; i < 1000; i++) {
-                temp.callMe("Thread1");
+                tempObj.callMe("Thread1");
             }
         }).start();
 
         new Thread(() -> {
             for (int i = 0; i < 1000; i++) {
-                temp.callMe("Thread2");
+                tempObj.callMe("Thread2");
             }
         }).start();
 

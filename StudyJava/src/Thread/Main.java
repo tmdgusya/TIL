@@ -7,8 +7,8 @@ public class Main {
         ChildThread childThread = new ChildThread("jsh", 10000);
         ParentThread parentThread = new ParentThread("yjs", 110000);
 
-        Thread thread1 = new Thread(childThread);
-        Thread thread2 = new Thread(parentThread);
+        Thread thread1 = new Thread(childThread); // New
+        Thread thread2 = new Thread(parentThread); // New
         GetStateThread stateThread = new GetStateThread(thread1, thread2);
         Thread thread_ = new Thread(stateThread);
 
@@ -20,9 +20,6 @@ public class Main {
             e.printStackTrace();
         }
 
-        // 우선 순위 설정
-        thread1.setPriority(Thread.MIN_PRIORITY);
-        thread2.setPriority(Thread.MAX_PRIORITY);
 
         try {
             Thread.sleep(10);
@@ -30,16 +27,16 @@ public class Main {
             e.printStackTrace();
         }
 
-        thread1.start();
-        thread2.start();
+//        thread1.start();
+//        thread2.start();
 
-        // try{
-        // thread1.start();
-        // thread1.join();
-        // thread2.start();
-        // }catch (Exception e){
-        // e.printStackTrace();
-        // }
+         try{
+         thread1.start();
+         thread1.join();
+         thread2.start();
+         }catch (Exception e){
+         e.printStackTrace();
+         }
     }
 
     static class GetStateThread implements Runnable {

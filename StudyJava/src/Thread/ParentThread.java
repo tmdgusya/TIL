@@ -17,7 +17,7 @@ public class ParentThread implements Runnable {
     @Override
     public void run() {
         try {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 1000000; i++) {
                 accountObj.deposit(10000);
                 readMdFile(MD_FILE_PATH);
             }
