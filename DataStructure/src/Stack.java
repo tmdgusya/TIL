@@ -23,15 +23,13 @@ public class Stack<T> {
         }
     }
 
-
     public void push(T item){
             if(this.data == null){
                 this.data = item;
             }else{
                 ifExistSelfData(item);
             }
-        }
-
+    }
 
     public T peek(){
         if(top == null) {
@@ -51,7 +49,6 @@ public class Stack<T> {
             return top == null;
         }
     }
-
 
     private T ifExistTop() {
         T item = top.data;
