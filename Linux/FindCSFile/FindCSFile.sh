@@ -9,6 +9,9 @@
 # Definition Field
 
 SPECIFIC_DIRECTORY=/Users/jeongseunghyeon/Desktop/공부폴더/TIL/Linux/CodeSquad
+
+cd ${SPECIFIC_DIRECTORY} # Move To directory
+
 CHILD_DIRECTORY=`ls -all | grep day | awk '{print $9}'`
 TODAY=`date +%Y-%m-%d`
 BACKUP_FOLDER_NAME=backup
