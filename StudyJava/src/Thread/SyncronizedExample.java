@@ -7,7 +7,6 @@ public class SyncronizedExample {
 
     public static void main(String[] agrs) {
         SyncronizedExample tempObj = new SyncronizedExample();
-        BufferedReader
         System.out.println("Test start!");
 
         new Thread(() -> {
