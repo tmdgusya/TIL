@@ -26,6 +26,11 @@ public class AdjacencyGraph {
         matrix[nodeA][nodeB] = 1;
     }
 
+    public void findConnectedInfo(int nodeA, int nodeB){ // O(1)
+        System.out.println("nodeA => node B : " + matrix[nodeA][nodeB]);
+        System.out.println("nodeB => node A : " + matrix[nodeB][nodeA]);
+    }
+
     public void printMatrix(){
         for (int i = 0; i< matrix.length; i++){
             for (int j = 0; j < matrix.length; j++){
