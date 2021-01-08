@@ -17,6 +17,7 @@ class AdjacencyGraphTest {
     * */
 
     AdjacencyGraph adjacencyGraph = new AdjacencyGraph(7);
+
     int[][] ExpectedData = {
             {0,0,0,0,0,0,0},
             {0,0,1,0,1,0,1},
@@ -26,6 +27,7 @@ class AdjacencyGraphTest {
             {0,0,1,0,1,0,1},
             {0,1,0,0,0,0,0}
     };
+
     @Test
     void graphTest(){
 
