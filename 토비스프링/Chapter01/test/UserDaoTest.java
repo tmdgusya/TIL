@@ -2,6 +2,7 @@ import BeforeRefactoring.User;
 import Factory.DaumUserDaoFactory;
 import SeperateClass.UserDao;
 import org.assertj.core.api.Assertions;
+import org.junit.After;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -11,8 +12,14 @@ import java.sql.SQLException;
 
 public class UserDaoTest {
 
+    @After
+    public void rollback() throws SQLException, ClassNotFoundException {
+        ApplicationContext ac = new AnnotationConfigApplicationContext(DaumUserDaoFactory.class);
+        UserDao userDao =  ac.getBean("getDaumUserDao", UserDao.class);
+        userDao.delete("1");
+    }
+
     @Test
-    @Rollback(value = true)
     public void userDaoTest() throws SQLException, ClassNotFoundException {
         ApplicationContext ac = new AnnotationConfigApplicationContext(DaumUserDaoFactory.class);
         UserDao userDao =  ac.getBean("getDaumUserDao", UserDao.class);
