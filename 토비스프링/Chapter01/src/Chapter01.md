@@ -97,7 +97,7 @@ public class UserDao {
 
 테스트 해봐도 잘 동작하고, 코드상에도 문제가 없는 것 처럼 보인다. <br>
 하지만 데이터베이스 Connection을 얻어오는 부분이 중복되는 것 처럼  <br>
-해당 부분을 Factory Method Pattern 으로 다시 짜보자. <br>
+해당 부분을 메소드를 추출하여 다시 짜보자. <br>
 
 ```java
 package OneTimeRefactor;
@@ -480,8 +480,14 @@ ApplicationContext 에 등록된 빈의 이름이다. 아까 getDaumUserDao 메�
 
 public class UserDaoTest {
 
+    @After
+    public void rollback() throws SQLException, ClassNotFoundException {
+        ApplicationContext ac = new AnnotationConfigApplicationContext(DaumUserDaoFactory.class);
+        UserDao userDao =  ac.getBean("getDaumUserDao", UserDao.class);
+        userDao.delete("1");
+    }
+    
     @Test
-    @Rollback(value = true)
     public void userDaoTest() throws SQLException, ClassNotFoundException {
         ApplicationContext ac = new AnnotationConfigApplicationContext(DaumUserDaoFactory.class);
         UserDao userDao =  ac.getBean("getDaumUserDao", UserDao.class);
@@ -496,8 +502,10 @@ public class UserDaoTest {
         User result = userDao.get("1");
 
         Assertions.assertThat(ExpectedName).isEqualTo(result.getName());
+
     }
 }
+
 ```
 ## 어플리케이션 컨텍스트 동작 방식
 
@@ -508,5 +516,122 @@ ApplicationContext는 어플리케이션에서 IoC를 적용해서 관리할 모
 ApplicationContext에는 직접 오브젝트를 생성하고 관계를 맺어주는 코드가 없고, 그런 생성 정보와 연관관계 정보를 별도의 설정정보를 통해 얻는다. <br>
 때로는 외부의 오브젝트 팩토리에 그 작업을 위임하고, 그 결과를 가져다가 사용하기도 한다. <br>
 즉 @Configuration 을 설정 정보에 등록해 두고, getBean() Method 가 호출되면 그 때 해당 Method 의 리턴값을 주입시켜 주는 것이다.
+
+## 싱글톤 패턴
+
+- Application Context 가 우리에게 제공하는 인스턴스는 싱글턴 패턴으로 제공된다.
+- 즉 몇번을 호출해도 같은 Context 를 돌려준다는 것이다.
+- 이는 스프링이 주로 적용되는 대상이 서버 환경이기 때문이다.
+  - 만약 매번 인스턴스를 만들어서 준다고 해보자. 그럼 어플리케이션이 1명당 100개의 로직정도를 처리한다고 했을때, 1명당 객체 100 개가 할당되어야 한다.
+  뭐 로직을 반복한다면 더 늘어날것이다. 근데 싱글톤으로 배급한다면, 1명당 1개로 줄일 수 있다. 확실히 비용이 절감되지 않는가? 이렇기에 서버 사이드에서는
+  싱글톤 패턴으로 공급되어야 하는 것이다.
+  
+## 싱글톤 레지스트리
+
+- 스프링은 자바환경에서 싱글톤이 만들어져서 오브젝트 방식으로 사용되는것을 지지한다.
+- 스프링은 직접 싱글톤 형태의 오브젝트를 만들고 관리하는 기능을 제공한다. => **싱글톤 레지스트리**
+
+## 싱글톤과 오브젝트의 상태
+
+- 싱글톤은 멀티 스레드 환경이라면 여러 스레드가 동시에 접근해서 사용할 수 있다.
+- 따라서 상태관리에 주의를 기울여야 한다.
+- **기본적으로 싱글톤이 멀티 스레드 환경에서 서비스 형태의 오브젝트로 사용되는 경우에는 상태정보를 내부에 갖고 있지않은 무상태 방식으로 만들어져야 한다.**
+- 그럼 Method Stack 을 이용해야 한다. 해당 Memory 는 Thread 당 할당되는 것이므로, 공유되지않는다. 우리가 해놓은 것들도 Method 내부에서 
+User 가 생성되고 없어지지 않는가? 근데 만약 아래와 같은 코드라고 해보자.
+
+```java
+package NotSafeToMultiThread;
+
+import BeforeRefactoring.User;
+import SeperateClass.ConnectionMaker;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class UserDao {
+    private ConnectionMaker connectionMaker;
+    private Connection conn;
+    private User user;
+
+    public UserDao(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
+    }
+
+    public void add(User user) throws ClassNotFoundException, SQLException {
+        String InsertUserQuery = "INSERT INTO User(id, name, password) values(?,?,?)";
+        this.conn = connectionMaker.getConnection();
+        PreparedStatement ps = this.conn.prepareStatement(InsertUserQuery);
+        ps.setString(1, user.getId());
+        ps.setString(2, user.getName());
+        ps.setString(3, user.getPassword());
+
+        ps.executeUpdate();
+
+        ps.close();
+        this.conn.close();
+    }
+
+    public User get(String id) throws ClassNotFoundException, SQLException {
+        String getUserQuery = "SELECT * FROM User WHERE id = ?";
+        this.conn = connectionMaker.getConnection();
+        PreparedStatement preparedStatement = this.conn.prepareStatement(getUserQuery);
+        preparedStatement.setString(1, id);
+
+        ResultSet rs = preparedStatement.executeQuery();
+        rs.next();
+
+        this.user.setId(rs.getString("id"));
+        this.user.setName(rs.getString("name"));
+        this.user.setPassword(rs.getString("password"));
+
+        rs.close();
+        preparedStatement.close();
+        this.conn.close();
+
+        return user;
+    }
+}
+
+```
+
+이렇게 되면 멀티 스레드로 돌릴시, this.conn 과 this.user 의 정보들이 시시각각 바뀌어 정말 큰일 날 수도 있다. <br>
+따라서 무상태를 유지할 수 있는 것들만, 인스턴스 변수로 유지하도록 하자!
+
+## 스프링 빈의 스코프
+
+- 스프링이 관리하는 오브젝트, 즉 빈이 생성되고, 존재하고, 적용되는 범위에 대해 알아보자.
+- 스프링에서는 이것을 **빈의 스코프** 라고 한다.
+- 스프링 빈의 기본 스코프는 **싱글톤** 이다.
+
+싱글톤 스코프는 컨테이너 내에 한 개의 오브젝트만 만들어져서, 강제로 제거 하지 않는 한 스프링 컨테이너가 존재하는 동안 계속 유지된다. <br>
+스프링에서 만들어지는 대부분의 빈은 싱글톤 스코프를 갖는다. 경우에 따라서는 싱글톤 외의 스코프를 가질 수 있다. <br>
+대표적으로 프로토타입 스코프가 있다. 프로토 타입은 싱글톤과 달리 컨테이너에 빈을 요청할 때 마다 매번 새로운 오브젝트를 만들어 준다 <br>
+그 외에도 웹을 통해 새로운 HTTP 요청이 생길 때마다 생성되는 요청 스코프가 있고, 웹의 세션과 유사한 세션 스코프가 있다. <br>
+
+#DI (Dependency Injection)
+
+## 의존관계란 ?
+
+두 개의 클래스 또는 모듈이 의존관계에 있다고 말할때는 항상 방향성을 부여해줘야 한다. <br>
+즉 누가 누구에게 의존하는 관계에 있다는 식이다. 
+
+### UserDao 의 의존관계
+
+우리가 지금까지 작업해왔던 형태는 UserDao 가 ConnectionMaker 에 의존하고 있는 형태이다. <br>
+UserDao 는 구현한 클래스에는 영향을 받지 않고, ConnectionMaker 에만 직접적인 영향을 받는다. <br>
+따라서 UserDao 는 우리가 구현한 DConnectionMaker 는 누구인지 모른다. 즉, 런타임 의존관계 라고 생각하면 편하다. <br>
+
+의존관계 주입은 우리가 new UserDao(new DConnectionMaker) 를 해주듯이, 런타임시에 의존관계가 주입되는 형태를 의존관계 주입이라고 한다.
+UserDao 는 어떤 클래스가 오던 ConnectionMaker 를 구현하고 있다면 상관없다.
+
+즉 아래의 세가지 조건을 충족시켜야 한다.
+
+- 클래스 모데이나 로드에는 런타임 시점의 의존관계가 드러나지 않는다. 그러기 위해서는 인터페이스에만 의존하고 있어야 한다.
+- 런타임 시점의 의존관계는 컨테이너나 팩토리 같은 제 3의 존재가 결정한다.
+- 의존관계는 사용할 오브젝트에 대한 레퍼런스를 외부에서 제공 해줌으로써 만들어진다.
+
+
 
 
