@@ -82,7 +82,7 @@ public class UserDao {
         User user = new User();
         user.setId(rs.getString("id"));
         user.setName(rs.getNString("name"));
-        user.setPassword(rs.getString("password"));
+        user.setName(rs.getString("password"));
 
         rs.close();
         preparedStatement.close();
@@ -134,7 +134,7 @@ public class UserDao {
         User user = new User();
         user.setId(rs.getString("id"));
         user.setName(rs.getNString("name"));
-        user.setPassword(rs.getString("password"));
+        user.setName(rs.getString("password"));
 
         rs.close();
         preparedStatement.close();
@@ -196,7 +196,7 @@ public abstract class UserDao {
         User user = new User();
         user.setId(rs.getString("id"));
         user.setName(rs.getNString("name"));
-        user.setPassword(rs.getString("password"));
+        user.setName(rs.getString("password"));
 
         rs.close();
         preparedStatement.close();
@@ -298,7 +298,7 @@ public class UserDao{
         User user = new User();
         user.setId(rs.getString("id"));
         user.setName(rs.getNString("name"));
-        user.setPassword(rs.getString("password"));
+        user.setName(rs.getString("password"));
 
         rs.close();
         preparedStatement.close();
@@ -474,39 +474,35 @@ ApplicationContext 에 등록된 빈의 이름이다. 아까 getDaumUserDao 메�
 
 ## Test
 
-아래는 직접만든 테스트이다. 정상적으로 통과함을 알 수 있다.
+아래는 직접만든 테스트이다. 원래는 테스트가 끝난후 RollBack 해줘야하나, 일단은 하지않았다.
+이부분은 나중에 Junit을 도입해서 쭈르륵 테스트를 돌리자!
 
 ```java
-
 public class UserDaoTest {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
-    @Test
-    @Rollback(value = true)
-    public void userDaoTest() throws SQLException, ClassNotFoundException {
         ApplicationContext ac = new AnnotationConfigApplicationContext(DaumUserDaoFactory.class);
         UserDao userDao =  ac.getBean("getDaumUserDao", UserDao.class);
-
-        String ExpectedName = "jsh";
         User user = new User();
         user.setId("1");
-        user.setName(ExpectedName);
+        user.setName("jsh");
         user.setPassword("1234");
         userDao.add(user);
 
-        User result = userDao.get("1");
+        User user1 = userDao.get("1");
 
-        Assertions.assertThat(ExpectedName).isEqualTo(result.getName());
+        assertion("jsh", user1.getName());
+    }
+
+    public static String assertion(String expected, String result) {
+        if(expected.equals(result)){
+            return "Success";
+        }else{
+            return "Fail";
+        }
     }
 }
 ```
 ## 어플리케이션 컨텍스트 동작 방식
-
-그럼 기존에 오브젝트 팩토리를 이용했던 방식과 스프링의 어플리케이션 컨텍스트를 사용한 방식을 비교해보자. <br>
-ApplicationContext 가 BeanFactory Interface 를 구현했으므로,  애플리케이션 컨텍스트는 일종의 빈 팩토리인 셈이다. <br>
-기존에 우리가 만들었던 DaoFactory 는 UserDao를 비롯한 DAO 오브젝트를 생성하고 DB 생성 오브젝트오 관계를 맺어주는 제한적인 역할을 하는데 비해,
-ApplicationContext는 어플리케이션에서 IoC를 적용해서 관리할 모든 오브젝트에 대한 생성과 관계설정을 담당한다. <br>
-ApplicationContext에는 직접 오브젝트를 생성하고 관계를 맺어주는 코드가 없고, 그런 생성 정보와 연관관계 정보를 별도의 설정정보를 통해 얻는다. <br>
-때로는 외부의 오브젝트 팩토리에 그 작업을 위임하고, 그 결과를 가져다가 사용하기도 한다. <br>
-즉 @Configuration 을 설정 정보에 등록해 두고, getBean() Method 가 호출되면 그 때 해당 Method 의 리턴값을 주입시켜 주는 것이다.
 
 
