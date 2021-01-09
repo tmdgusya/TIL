@@ -36,7 +36,7 @@ public abstract class UserDao {
         User user = new User();
         user.setId(rs.getString("id"));
         user.setName(rs.getNString("name"));
-        user.setName(rs.getString("password"));
+        user.setPassword(rs.getString("password"));
 
         rs.close();
         preparedStatement.close();

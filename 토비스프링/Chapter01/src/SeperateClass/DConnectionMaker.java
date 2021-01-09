@@ -6,9 +6,10 @@ import java.sql.SQLException;
 
 public class DConnectionMaker implements ConnectionMaker{
     @Override
-    public Connection getConnection() throws SQLException {
-        String DataBaseURL = "jdbc:h2:~/DaumDB";
-        Connection conn = DriverManager.getConnection(DataBaseURL, "Daum", "");
+    public Connection getConnection() throws SQLException, ClassNotFoundException {
+        Class.forName("org.h2.Driver");
+        String DataBaseURL = "jdbc:h2:tcp://localhost/~/DaumDBCustom010";
+        Connection conn = DriverManager.getConnection(DataBaseURL, "Daum", "1234");
         return conn;
     }
 }
