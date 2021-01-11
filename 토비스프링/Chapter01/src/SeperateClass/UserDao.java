@@ -54,6 +54,9 @@ public class UserDao{
         PreparedStatement preparedStatement = conn.prepareStatement(deleteUserQuery);
         preparedStatement.setString(1,id);
         preparedStatement.executeUpdate();
+
+        preparedStatement.close();
+        conn.close();
     }
 
 }
