@@ -23,19 +23,21 @@ public class InputUserCommnad {
                 vidoeIndex = commandTokens.nextToken();
             }
 
-            switch (command){
-                case "add":
+            Commands inputCommand = Commands.valueOf(command);
+
+            switch (inputCommand){
+                case add :
                     Video video = new Video(autoGentratedId(), videoTitle, randomPlayTime());
                     videoList.add(video);
                     break;
-                case "insert":
+                case insert:
                     Video insert = new Video(autoGentratedId(), videoTitle, randomPlayTime());
                     videoList.insert(insert, Integer.parseInt(vidoeIndex));
                     break;
-                case "delete":
+                case delete:
                     videoList.delete(videoTitle);
                     break;
-                case "exit":
+                case exit:
                     return;
             }
         }
