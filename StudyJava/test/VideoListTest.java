@@ -1,8 +1,9 @@
+import VideoData.Video;
+import VideoData.VideoList;
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 public class VideoListTest {
 

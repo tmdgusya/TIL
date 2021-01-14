@@ -1,0 +1,20 @@
+<component name="libraryTable">
+  <library name="com.netflix.hystrix:hystrix-junit:1.5.12" type="repository">
+    <properties maven-id="com.netflix.hystrix:hystrix-junit:1.5.12" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/netflix/hystrix/hystrix-junit/1.5.12/hystrix-junit-1.5.12.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/netflix/hystrix/hystrix-core/1.5.12/hystrix-core-1.5.12.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.0/slf4j-api-1.7.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/netflix/archaius/archaius-core/0.4.1/archaius-core-0.4.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-configuration/commons-configuration/1.8/commons-configuration-1.8.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.6/commons-lang-2.6.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/io/reactivex/rxjava/1.2.0/rxjava-1.2.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/hdrhistogram/HdrHistogram/2.1.9/HdrHistogram-2.1.9.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.11/junit-4.11.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

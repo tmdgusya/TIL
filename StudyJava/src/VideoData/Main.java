@@ -1,3 +1,5 @@
+package VideoData;
+
 import java.io.IOException;
 
 public class Main {
