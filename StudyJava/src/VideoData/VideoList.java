@@ -1,3 +1,5 @@
+package VideoData;
+
 public class VideoList {
 
     private Video last = null;

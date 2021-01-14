@@ -1,3 +1,5 @@
+package VideoData;
+
 public class Video {
 
     private String id;
