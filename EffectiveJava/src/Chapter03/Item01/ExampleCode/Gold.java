@@ -1,4 +1,4 @@
-package Item01.ExampleCode;
+package Chapter03.Item01.ExampleCode;
 
 public class Gold extends Grade {
 

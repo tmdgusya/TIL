@@ -1,4 +1,4 @@
-package Item03;
+package Chapter03.Item03;
 
 public class DB {
 

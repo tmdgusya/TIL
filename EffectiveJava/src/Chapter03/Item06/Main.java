@@ -1,4 +1,4 @@
-package Item06;
+package Chapter03.Item06;
 
 public class Main {
 
@@ -34,6 +34,17 @@ public class Main {
         System.out.println(k.hashCode());
         System.out.println(z.hashCode());
         System.out.println(b.hashCode());
+
+        System.out.println("==================");
+
+        System.out.println(System.identityHashCode(String.valueOf("123")));
+        System.out.println(System.identityHashCode(String.valueOf("123")));
+        System.out.println(System.identityHashCode("123"));
+        System.out.println(System.identityHashCode(Integer.toString(123)));
+        System.out.println(System.identityHashCode(Integer.toString(123)));
+        System.out.println(System.identityHashCode(new String("123")));
+        System.out.println(System.identityHashCode(new String("123")));
+
 
         /*System.identityHashCode()
         * System 클래스의 identityHashCode 메서드로 객체가 메모리에서 가진 해쉬 주소값을 출력한다.

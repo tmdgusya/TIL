@@ -1,6 +1,4 @@
-package Item01.ExampleCode;
-
-import Item01.ExampleCode.Grade;
+package Chapter03.Item01.ExampleCode;
 
 public class Platinum extends Grade{
 
