@@ -1,0 +1,56 @@
+```sql
+prompt Transaction A
+# 하나의 Transaction 을 A로 설정한다.
+prompt Transaction B
+# 하나의 Transaction 을 B로 설정한다.
+```
+
+```sql
+TransactionA> start transaction;
+TransactionB> start transaction;
+TransactionC> start transaction;
+
+TransactionC> update t1 set v2 = 'MYSQL' where i1 = 1;commit;start transaction;
+TransactionA> select * from t1 where i1 = 1;
+TransactionB> select * from t1 where i1 = 1;
+
+TransactionC> update t1 set v2 = 'PostgreSQL' where i1 = 1;commit;start transaction;
+TransactionC> update t1 set v2 = 'Oracle' where i1 = 1;
+
+TransactionA> select * from t1 where i1 = 1; => MYSQL
+TransactionB> select * from t1 where i1 = 1; => MYSQL
+TransactionC> select * from t1 where i1 = 1; => Oracle
+
+TransactionA> rollback;
+TransactionB> rollback;
+TransactionC> rollback;
+```
+
+```sql
+Transaction C>select * from t1;
++----+-------+
+| i1 | v2    |
++----+-------+
+|  1 | MYSQL |
+|  2 | dodo  |
+|  3 | MYSQL |
++----+-------+
+3 rows in set (0.00 sec)
+```
+
+```sql
+update t1 set v2='dodo' where i1 = 1;commit;start transaction;
+# 확인해봤을때 차이점은 commit 은 start transaction 을 뒤에 붙였을때, dodo 는 다른 Transaction
+# 에도 업데이트 되나,
+update t1 set v2='coco' where i1 = 1;
+# 위와 같이 치면 다른 트랜잭션에도 업데이트 되지 않는다.
+# 아 이해갔다! 내가 commit 이라고 치면 아마 반영될것 같다.
+commit;
+# 아 commit 치니까, 진짜 다른 트랜잭션에도 반영됬다. 아 이제야 잘 이해가 간다.
+# 그럼 DDL / DML 은 commit 을 날리기전에 안된다는게 이해가 된다!
+# 즉 그러면 우리가 JPA 로 날리는 commit도 이걸 날려주는거였다!
+# if Rollback; 
+# 그냥 치면 coco => dodo 로 그냥 반영되기 전의 상태로 된다.
+```
+
+# 이건 그냥 중요해서 적어봄 매일매일 보는게 중요할 듯 하다.
