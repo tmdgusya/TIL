@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 double getSavingsMaturityMoney(int year, double interestRate, int money){
-	return interestRate*year*money;
+	return money+interestRate*year*money;
 }
 
 
