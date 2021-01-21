@@ -11,5 +11,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="com.netflix.hystrix:hystrix-junit:1.5.12" level="project" />
     <orderEntry type="library" name="io.fabric8:jolokia-assertions:2.2.11" level="project" />
+    <orderEntry type="library" name="com.guicedee.services:javax.servlet-api:1.0.1.7-jre8" level="project" />
   </component>
 </module>

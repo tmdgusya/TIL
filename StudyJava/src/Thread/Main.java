@@ -21,12 +21,6 @@ public class Main {
         }
 
 
-        try {
-            Thread.sleep(10);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
 //        thread1.start();
 //        thread2.start();
 

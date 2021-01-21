@@ -19,7 +19,7 @@ public class Alpha {
     public Set<Integer> factors() {
         HashSet<Integer> factors = new HashSet<>();
         IntStream range = IntStream.rangeClosed(1, (int) Math.sqrt(number));
-        range.forEach(ele -> {if(isFactor(ele)) {factors.add(ele); factors.add(number / ele);}});
+        range.filter(this::isFactor).forEach(ele -> {factors.add(ele); factors.add(number / ele);});
         return factors;
     }
 
