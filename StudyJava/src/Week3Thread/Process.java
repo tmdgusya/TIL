@@ -35,7 +35,7 @@ public class Process extends Thread{
     }
 
     @Override
-    public synchronized void run() {
+    public void run() {
         thread.start();
     }
 

@@ -11,7 +11,7 @@ public class OS {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        init();
+        init(); 
         System.out.println("Syslog : Init Process Create");
         executeProcess();
         processManagerCycle.startManaging();
