@@ -1,9 +1,8 @@
 package hello.core.order;
 
-import hello.member.Grade;
-import hello.member.Member;
-import hello.member.MemberService;
-import hello.member.MemberServiceImpl;
+import hello.core.Appconfig;
+import hello.discount.FixDiscountPolicy;
+import hello.member.*;
 import hello.order.Order;
 import hello.order.OrderServiceImpl;
 import hello.order.OrderServie;
@@ -12,8 +11,10 @@ import org.junit.jupiter.api.Test;
 
 public class OrderServiceTest {
 
-    MemberService memberService = new MemberServiceImpl();
-    OrderServie orderServie = new OrderServiceImpl();
+    Appconfig appconfig = new Appconfig();
+
+    MemberService memberService = appconfig.memberService();
+    OrderServie orderServie = appconfig.orderServie();
 
     @Test
     void createOrder(){
