@@ -7,7 +7,10 @@ import hello.order.Order;
 import hello.order.OrderServiceImpl;
 import hello.order.OrderServie;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class OrderServiceTest {
 
@@ -15,6 +18,13 @@ public class OrderServiceTest {
 
     MemberService memberService = appconfig.memberService();
     OrderServie orderServie = appconfig.orderServie();
+    ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Appconfig.class);
+
+    @BeforeEach
+    void beforeEach(){
+        memberService = applicationContext.getBean("memberService", MemberService.class);
+        orderServie = applicationContext.getBean("orderService", OrderServie.class);
+    }
 
     @Test
     void createOrder(){

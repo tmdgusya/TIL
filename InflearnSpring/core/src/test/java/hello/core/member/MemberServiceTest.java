@@ -6,12 +6,20 @@ import hello.member.Member;
 import hello.member.MemberService;
 import hello.member.MemberServiceImpl;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class MemberServiceTest {
 
-    Appconfig appconfig = new Appconfig();
-    MemberService memberService = appconfig.memberService();
+    MemberService memberService;
+    ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Appconfig.class);
+
+    @BeforeEach
+    void beforeEach(){
+        memberService = applicationContext.getBean("memberService", MemberService.class);
+    }
 
     @Test
     void join(){
