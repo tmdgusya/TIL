@@ -25,7 +25,7 @@ public class App {
     public void start() throws IOException, InterruptedException {
         Coffee orderedCoffee = order();
         for(int i = 0; i<coffeeCount; i++){
-            cashier.add(orderedCoffee, coffeeCount);
+            cashier.addOrder(orderedCoffee, coffeeCount);
         }
         manager.start();
     }

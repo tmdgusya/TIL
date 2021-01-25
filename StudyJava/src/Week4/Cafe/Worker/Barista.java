@@ -11,12 +11,17 @@ import java.util.concurrent.Future;
 
 public class Barista {
 
+    private int id;
     boolean isWork = false;
+
+    public Barista(int id) {
+        this.id = id;
+    }
 
     public Observable<String> asyncWork(Order order){
         Observable<String> work = Observable.fromCallable(()->{
                 try {
-                   Logger.logging(order.getCoffee().getName() + " 주문을 받았습니다.");
+                    Logger.logging("Barista"+ id +" "+order.getCoffee().getName() + " 주문을 받았습니다.");
                     work(order);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

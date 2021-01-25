@@ -4,6 +4,7 @@ import Week4.Cafe.Coffee.Coffee;
 import Week4.Cafe.Coffee.Menu;
 import Week4.Cafe.Info.DashBoard;
 import Week4.Cafe.Info.Order;
+import Week4.Cafe.Util.Logger;
 import Week4.Cafe.Util.WorkerQueue;
 import Week4.Cafe.Worker.Barista;
 import Week4.Cafe.Worker.Cashier;
@@ -15,6 +16,7 @@ import java.util.Queue;
 
 public class Config {
     //메뉴 3개 바리스타 2
+    private final int BARISTA_COUNT = 3;
     WorkerQueue workerQueue = new WorkerQueue();
     Queue<Order> workQueue = new LinkedList<>();
     DashBoard dashBoard = new DashBoard();
@@ -33,12 +35,18 @@ public class Config {
     }
 
     public WorkerQueue workerQueue(){
-        workerQueue.add(new Barista());
-        workerQueue.add(new Barista());
+        addBarista();
         return workerQueue;
     }
 
-    public DashBoard dashBoard(){
+    private void addBarista() {
+        Logger.logging("바리스타는 총 " + BARISTA_COUNT + " 명 입니다.");
+        for(int i = 0; i<BARISTA_COUNT; i++){
+            workerQueue.add(new Barista(i));
+        }
+    }
+
+    private DashBoard dashBoard(){
         return dashBoard;
     }
 
@@ -50,6 +58,7 @@ public class Config {
         menu.addMenu(americano);
         menu.addMenu(cafeLatte);
         menu.addMenu(frappuccino);
+        Logger.logging(menu.toString());
         return menu;
     }
 

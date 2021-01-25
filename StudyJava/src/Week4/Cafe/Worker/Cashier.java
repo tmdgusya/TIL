@@ -17,7 +17,7 @@ public class Cashier {
         this.workQueue = workQueue;
     }
 
-    public void add(Coffee coffee, int count){
+    public void addOrder(Coffee coffee, int count){
         workQueue.add(new Order(coffee, count));
         dashBoard.add(new String(coffee.getName()));
     }

@@ -15,6 +15,12 @@ public class Menu {
 
     @Override
     public String toString() {
-        return "메뉴  =  " + menu.toString();
+        StringBuilder stringBuilder = new StringBuilder("메뉴  =  ");
+        int idx = 0;
+        for(Coffee coffee : menu){
+            stringBuilder.append(idx + ". " +coffee.getName()+"   ");
+            idx++;
+        }
+        return stringBuilder.toString();
     }
 }
