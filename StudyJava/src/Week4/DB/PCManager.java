@@ -31,7 +31,7 @@ public class PCManager {
     public String toString() {
         StringBuilder vacantSeatListMessageBuilder = new StringBuilder("[ ");
         for(PC pc : getVacantSeats()){
-            vacantSeatListMessageBuilder.append(pc.getPc_id() + " ");
+            vacantSeatListMessageBuilder.append(pc.getPc_id()).append(" ");
         }
         vacantSeatListMessageBuilder.append("]");
         return vacantSeatListMessageBuilder.toString();
@@ -74,26 +74,26 @@ public class PCManager {
                 PreparedStatement getPCQuery = connection.prepareStatement(getPC);
                 PreparedStatement userUpdateQuery = connection.prepareStatement(userEndTimeUpdate);
         ) {
-            final ResultSet PCSet = getPCQuery.executeQuery();
+            ResultSet PCSet = getPCQuery.executeQuery();
             while (PCSet.next()){
-                int id = PCSet.getInt("pc_id");
-                pc_id = updatePCInUseFalse(connection, id);
+                pc_id = PCSet.getInt("pc");
+                updatePCInUseFalse(connection, pc_id);
             }
             userUpdateQuery.executeUpdate();
+            return pc_id;
         }catch (SQLException e){
             System.out.println("자리 삭제 에서 문제가 발생했습니다. = " + e);
         }
-        return pc_id;
+        return 0;
     }
 
-    private int updatePCInUseFalse(Connection connection, int pc_id) throws SQLException {
-        final String pcUpdateQuery = String.format("update PC set in_use = 0 where pc_id = %d", pc_id);
+    private void updatePCInUseFalse(Connection connection, int pc_id) throws SQLException {
+        final String pcUpdateQuery = String.format("update PC set in_use = 0 where pc_id = '%d'", pc_id);
         try(PreparedStatement preparedStatement = connection.prepareStatement(pcUpdateQuery);) {
             preparedStatement.executeUpdate();
             preparedStatement.close();
         }catch (Exception e){
             System.out.println("PC 자리 수정중 오류발생!");
         }
-        return pc_id;
     }
 }
