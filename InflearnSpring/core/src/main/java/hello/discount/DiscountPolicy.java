@@ -1,6 +1,7 @@
 package hello.discount;
 
 import hello.member.Member;
+import jdk.jfr.Event;
 
 public interface DiscountPolicy {
 
