@@ -22,7 +22,7 @@ class StatefulServiceTest {
         statefulService2.order("userB", 20000);
 
         int price = statefulService1.getPrice();
-        Assertions.assertThat(10000).isEqualTo(price); // 상태를 가져서 간섭을 받게됨
+        Assertions.assertThat(20000).isEqualTo(price); // 상태를 가져서 간섭을 받게됨
     }
 
     static class TestConfig {
