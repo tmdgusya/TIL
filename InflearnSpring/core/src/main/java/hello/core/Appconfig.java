@@ -1,13 +1,12 @@
 package hello.core;
 
 import hello.discount.DiscountPolicy;
-import hello.discount.FixDiscountPolicy;
 import hello.discount.RateDiscountPolicy;
 import hello.member.MemberService;
 import hello.member.MemberServiceImpl;
 import hello.member.MemoryMemberRepository;
 import hello.order.OrderServiceImpl;
-import hello.order.OrderServie;
+import hello.order.OrderService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,7 +24,7 @@ public class Appconfig {
     }
 
     @Bean
-    public OrderServie orderServie(){
+    public OrderService orderService(){
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
