@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="JSPStudy:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="88fb9c5e-487b-4cfb-9d0e-9ac55bbea86f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JSPStudy.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/JSPStudy/ControllerServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/JSPStudy/NowServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/simpleView.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/PrototypeTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/SingleTonTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/SingletonWithPrototypeTest1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../StudyJava/src/Week5/DNS.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../StudyJava/src/Week5/DNS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../StudyJava/src/Week5/SocketHTTP.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../StudyJava/src/Week5/SocketHTTP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../StudyJava/src/Week5/URLHttp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../StudyJava/src/Week5/URLHttp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Audience.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Audience.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Bag.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Bag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Invitation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Invitation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Theater.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Theater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Ticket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../오브젝트/src/Chap01/TicketOffice.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../오브젝트/src/Chap01/TicketOffice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../오브젝트/src/Chap01/TicketSeller.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../오브젝트/src/Chap01/TicketSeller.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Jsp File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1nvBPhqGbjA4rM7gSXNNnzXkIXL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Tomcat 8.5.61" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.61" ALTERNATIVE_JRE_ENABLED="false">
+      <deployment>
+        <artifact name="JSPStudy:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/JSPStudy_war_exploded" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="7e363737-bfdd-400b-9b4b-a459db99bc50" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="JSPStudy:war exploded" />
+        </option>
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="88fb9c5e-487b-4cfb-9d0e-9ac55bbea86f" name="Default Changelist" comment="" />
+      <created>1612260662219</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1612260662219</updated>
+      <workItem from="1612260663891" duration="4365000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
