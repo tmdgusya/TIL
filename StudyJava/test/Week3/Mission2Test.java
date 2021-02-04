@@ -1,11 +1,8 @@
 package Week3;
 
+import Alpha.Mission2;
 import junit.framework.TestCase;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
-
-import java.util.HashSet;
-import java.util.stream.IntStream;
 
 public class Mission2Test extends TestCase {
 
