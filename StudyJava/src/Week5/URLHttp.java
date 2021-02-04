@@ -19,6 +19,7 @@ public class URLHttp implements HTTP{
         try {
             URL url = new URL("http://"+domain);
             StringBuilder stringBuilder = new StringBuilder();
+
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
             String tempData;

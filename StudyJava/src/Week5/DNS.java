@@ -10,6 +10,9 @@ public class DNS {
     private Map<String, String> domain = new HashMap<>();
 
     public String getAddress(String DomainName){
+        if(domain.get(DomainName) != null){
+            return domain.get(DomainName);
+        }
         try {
             System.out.println("IP 주소를 얻어옵니다 ....");
             InetAddress ip = InetAddress.getByName(DomainName);

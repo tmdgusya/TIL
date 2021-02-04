@@ -16,7 +16,8 @@ public class SocketHTTP implements HTTP{
     }
 
     public void SendReq(String url, int port) {
-        try (   Socket s = new Socket(url, port);
+        try (
+                Socket s = new Socket(url, port);
                 PrintWriter wtr = new PrintWriter(s.getOutputStream());
             )
         {
@@ -34,6 +35,9 @@ public class SocketHTTP implements HTTP{
             while((outStr = bufRead.readLine()) != null){
                 if(outStr.contains(":")){
                     responseHeader.setHeader(outStr.split(":")[0], outStr.split(":")[1]);
+                }
+                if(outStr.contains("</html>")){
+                    break;
                 }
                 System.out.println(outStr);
             }
