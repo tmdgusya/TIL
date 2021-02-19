@@ -4,6 +4,20 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  
+  <listener>
+    <listener-class>me.roach.MyListener</listener-class>
+  </listener>
+
+  <filter>
+    <filter-name>MyFilter</filter-name>
+    <filter-class>me.roach.MyFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>MyFilter</filter-name>
+    <servlet-name>hello</servlet-name>
+  </filter-mapping>
 
   <servlet>
     <servlet-name>hello</servlet-name>
