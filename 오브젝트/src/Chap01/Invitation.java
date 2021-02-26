@@ -1,7 +1,2 @@
-package Chap01;
-
-import java.time.LocalDateTime;
-
-public class Invitation {
-    private LocalDateTime when;
+package Chap01;public class Invitation {
 }

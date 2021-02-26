@@ -10,18 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88fb9c5e-487b-4cfb-9d0e-9ac55bbea86f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JSPStudy.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/JSPStudy/ControllerServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/JSPStudy/NowServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/simpleView.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/PrototypeTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/SingleTonTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/SingletonWithPrototypeTest1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../StudyJava/src/Week5/DNS.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../StudyJava/src/Week5/DNS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../StudyJava/src/Week5/SocketHTTP.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../StudyJava/src/Week5/SocketHTTP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../StudyJava/src/Week5/URLHttp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../StudyJava/src/Week5/URLHttp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/PrototypeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/PrototypeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/SingleTonTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/SingleTonTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/SingletonWithPrototypeTest1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../core/src/test/java/hello/core/scope/SingletonWithPrototypeTest1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Audience.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Audience.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Bag.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Bag.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Invitation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../오브젝트/src/Chap01/Invitation.java" afterDir="false" />
@@ -75,6 +67,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunManager">
     <configuration name="Tomcat 8.5.61" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.61" ALTERNATIVE_JRE_ENABLED="false">
@@ -124,7 +117,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1612260662219</updated>
-      <workItem from="1612260663891" duration="4365000" />
+      <workItem from="1612260663891" duration="5027000" />
+      <workItem from="1612581040635" duration="6000" />
     </task>
     <servers />
   </component>
@@ -141,5 +135,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

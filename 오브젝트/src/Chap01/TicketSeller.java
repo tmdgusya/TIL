@@ -1,13 +1,2 @@
-package Chap01;
-
-public class TicketSeller {
-    private TicketOffice ticketOffice;
-
-    public TicketSeller(TicketOffice ticketOffice) {
-        this.ticketOffice = ticketOffice;
-    }
-
-    public TicketOffice getTicketOffice() {
-        return ticketOffice;
-    }
+package Chap01;public class TicketSeller {
 }

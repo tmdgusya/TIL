@@ -1,5 +1,6 @@
 package Graph.Rendering;
 
+import java.awt.*;
 import java.util.Arrays;
 
 public class AGraph implements Graph{
@@ -17,6 +18,7 @@ public class AGraph implements Graph{
         initializingArray(max);
         graphMap[max-y1][x1-1] = "🌝";
         graphMap[max-y2][x2-1] = "🌕";
+        Dimension
         printGraph(max);
     }
 
