@@ -1,14 +1,18 @@
 package roach.service;
 
+import roach.core.ConnectionMaker;
 import roach.entity.User;
+import roach.core.SimpleConnectionMaker;
 
 import java.sql.*;
 
 public class UserDao {
 
-    private String url = "jdbc:mysql://localhost:3307/tobi";
-    private String userName = "root";
-    private String password = "1234";
+    private final ConnectionMaker connectionMaker;
+
+    public UserDao(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
+    }
 
     /**
      * Insert User Entity data at DB User table
@@ -18,7 +22,7 @@ public class UserDao {
      */
     public void add(User user) throws ClassNotFoundException, SQLException {
 
-        Connection connection = getConnection();
+        Connection connection = connectionMaker.makeConnection();
 
         PreparedStatement ps = connection.prepareStatement("INSERT INTO users(id, name, password) values (?,?,?)");
         ps.setString(1, user.getId());
@@ -39,7 +43,7 @@ public class UserDao {
      */
     public User get(String id) throws ClassNotFoundException, SQLException {
 
-        Connection connection = getConnection();
+        Connection connection = connectionMaker.makeConnection();
 
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
         ps.setString(1, id);
@@ -59,8 +63,4 @@ public class UserDao {
         return user;
     }
 
-    private Connection getConnection() throws SQLException, ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection(url, userName, password);
-    }
 }
