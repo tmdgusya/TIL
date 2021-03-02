@@ -1,6 +1,7 @@
 package roach.service;
 
 import org.junit.jupiter.api.*;
+import roach.core.SimpleConnectionMaker;
 import roach.entity.User;
 
 import java.sql.Connection;
@@ -19,7 +20,7 @@ class UserDaoTest {
 
     @BeforeEach
     void createUserDao(){
-        userDao = new UserDao();
+        userDao = new UserDao(new SimpleConnectionMaker());
     }
 
     @AfterEach
