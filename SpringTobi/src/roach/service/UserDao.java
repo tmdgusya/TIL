@@ -17,8 +17,8 @@ public class UserDao {
      * @throws SQLException
      */
     public void add(User user) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(url, userName, password);
+
+        Connection connection = getConnection();
 
         PreparedStatement ps = connection.prepareStatement("INSERT INTO users(id, name, password) values (?,?,?)");
         ps.setString(1, user.getId());
@@ -38,8 +38,8 @@ public class UserDao {
      * @throws SQLException
      */
     public User get(String id) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(url, userName, password);
+
+        Connection connection = getConnection();
 
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
         ps.setString(1, id);
@@ -59,4 +59,8 @@ public class UserDao {
         return user;
     }
 
+    private Connection getConnection() throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.jdbc.Driver");
+        return DriverManager.getConnection(url, userName, password);
+    }
 }
