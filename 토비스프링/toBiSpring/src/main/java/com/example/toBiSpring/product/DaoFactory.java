@@ -5,13 +5,16 @@ import com.example.toBiSpring.core.SimpleConnectionMaker;
 import com.example.toBiSpring.service.UserDao;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class DaoFactory {
 
     @Bean
     public UserDao getUserDao() {
-        return new UserDao(connectionMaker());
+        return new UserDao(dataSource());
     }
 
     @Bean
@@ -19,4 +22,15 @@ public class DaoFactory {
         return new SimpleConnectionMaker();
     }
 
+    @Bean
+    public DataSource dataSource() {
+        SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+
+        dataSource.setDriverClass(com.mysql.jdbc.Driver.class);
+        dataSource.setUrl("jdbc:mysql://localhost:3307/tobi");
+        dataSource.setUsername("root");
+        dataSource.setPassword("1234");
+
+        return dataSource;
+    }
 }
