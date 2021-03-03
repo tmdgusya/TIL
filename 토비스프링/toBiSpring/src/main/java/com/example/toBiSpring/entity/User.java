@@ -1,4 +1,4 @@
-package roach.entity;
+package com.example.toBiSpring.entity;
 
 import java.util.Objects;
 

@@ -1,8 +1,8 @@
-package roach.service;
+package com.example.toBiSpring.service;
 
-import roach.core.ConnectionMaker;
-import roach.entity.User;
-import roach.core.SimpleConnectionMaker;
+
+import com.example.toBiSpring.core.ConnectionMaker;
+import com.example.toBiSpring.entity.User;
 
 import java.sql.*;
 

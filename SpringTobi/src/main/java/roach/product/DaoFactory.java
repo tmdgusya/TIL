@@ -1,7 +1,7 @@
-package roach.product;
+package main.roach.product;
 
-import roach.core.SimpleConnectionMaker;
-import roach.service.UserDao;
+import main.roach.core.SimpleConnectionMaker;
+import main.roach.service.UserDao;
 
 public class DaoFactory {
 

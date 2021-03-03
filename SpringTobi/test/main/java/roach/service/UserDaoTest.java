@@ -1,9 +1,8 @@
-package roach.service;
+package main.roach.service;
 
 import org.junit.jupiter.api.*;
-import roach.core.SimpleConnectionMaker;
-import roach.entity.User;
-import roach.product.DaoFactory;
+import main.roach.entity.User;
+import main.roach.product.DaoFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
