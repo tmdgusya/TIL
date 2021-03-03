@@ -4,7 +4,10 @@ package com.example.toBiSpring.service;
 import com.example.toBiSpring.StatementStartegy.AddStatement;
 import com.example.toBiSpring.StatementStartegy.DeleteAllStatement;
 import com.example.toBiSpring.StatementStartegy.StatementStrategy;
+import com.example.toBiSpring.core.JdbcContext;
 import com.example.toBiSpring.entity.User;
+import com.example.toBiSpring.product.DaoFactory;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -14,10 +17,10 @@ import java.sql.SQLException;
 
 public class UserDao {
 
-    private final DataSource dataSource;
+    private final JdbcContext jdbcContext;
 
-    public UserDao(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public UserDao(JdbcContext jdbcContext) {
+        this.jdbcContext = jdbcContext;
     }
 
     /**
@@ -29,7 +32,7 @@ public class UserDao {
      */
     public void add(User user) throws ClassNotFoundException, SQLException {
         StatementStrategy st = new AddStatement(user);
-        jdbcContextWithStatementStrategy(st);
+        jdbcContext.jdbcWithStatementStrategy(st);
     }
 
     /**
@@ -41,7 +44,7 @@ public class UserDao {
      */
     public User get(String id) throws ClassNotFoundException, SQLException {
 
-        Connection connection = dataSource.getConnection();
+        Connection connection = new AnnotationConfigApplicationContext(DaoFactory.class).getBean("dataSource", DataSource.class).getConnection();
 
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
         ps.setString(1, id);
@@ -70,22 +73,7 @@ public class UserDao {
 
     public void deleteAll() throws SQLException {
         StatementStrategy statementStrategy = new DeleteAllStatement();
-        jdbcContextWithStatementStrategy(statementStrategy);
-    }
-
-    public void jdbcContextWithStatementStrategy(StatementStrategy stmt) throws SQLException {
-        Connection c = null;
-        PreparedStatement ps = null;
-        try {
-            c = dataSource.getConnection();
-            ps = stmt.makePreparedStatement(c);
-            ps.executeUpdate();
-        }catch (SQLException e) {
-            throw e;
-        }finally {
-            c.close();
-            ps.close();
-        }
+        jdbcContext.jdbcWithStatementStrategy(statementStrategy);
     }
 
 }
