@@ -1,5 +1,6 @@
 package com.example.toBiSpring.core;
 
+import com.example.toBiSpring.StatementStartegy.DeleteAllStatement;
 import com.example.toBiSpring.StatementStartegy.StatementStrategy;
 import com.example.toBiSpring.entity.User;
 

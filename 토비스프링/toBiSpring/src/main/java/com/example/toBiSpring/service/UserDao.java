@@ -25,7 +25,6 @@ public class UserDao {
 
     /**
      * Insert User Entity data at DB User table
-     *
      * @param user (User Entity)
      * @throws ClassNotFoundException
      * @throws SQLException
@@ -37,7 +36,6 @@ public class UserDao {
 
     /**
      * If there's a user tuple in the database with the same ID, Gets the user(tuple) from the database
-     *
      * @param id (user id)
      * @throws ClassNotFoundException
      * @throws SQLException
