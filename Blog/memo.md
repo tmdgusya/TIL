@@ -7,3 +7,5 @@
 [Redis 분산락](https://devroach.tistory.com/82)
 
 [Redisson 을 사용한 이유](https://devroach.tistory.com/83)
+
+[INDEX 를 타지 않을 경우](https://devroach.tistory.com/84)
